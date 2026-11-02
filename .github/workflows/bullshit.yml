@@ -3,7 +3,7 @@ name: Build Android Test
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build-android:
