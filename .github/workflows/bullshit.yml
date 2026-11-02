@@ -1,0 +1,47 @@
+name: Build Android Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Instalar Haxe
+        uses: kdy1/setup-haxe@v2
+        with:
+          haxe-version: 4.3.4
+
+      - name: Instalar Dependências do Haxe (HMM)
+        run: |
+          haxelib install hmm --quiet
+          haxelib run hmm install
+
+      - name: Configurar SDK e NDK do Android
+        run: |
+          haxelib run lime config ANDROID_SDK $ANDROID_HOME
+          haxelib run lime config ANDROID_NDK $ANDROID_NDK_ROOT
+          haxelib run lime config JAVA_HOME $JAVA_HOME
+
+      - name: Compilar APK (Modo Release)
+        run: |
+          haxelib run lime build android -release
+
+      - name: Guardar APK Gerada
+        uses: actions/upload-artifact@v4
+        with:
+          name: PsychEngine-Test-Build
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          
