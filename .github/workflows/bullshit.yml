@@ -3,7 +3,7 @@ name: Build Android Test
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build-android:
@@ -26,6 +26,7 @@ jobs:
 
       - name: Instalar Dependências do Haxe (HMM)
         run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
           haxelib install hmm --quiet
           haxelib run hmm install
 
@@ -44,3 +45,4 @@ jobs:
         with:
           name: PsychEngine-Test-Build
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          
