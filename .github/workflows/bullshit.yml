@@ -3,7 +3,7 @@ name: Build Android Test
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build-android:
@@ -20,7 +20,7 @@ jobs:
           java-version: '17'
 
       - name: Instalar Haxe
-        uses: kdrlab/setup-haxe@v2
+        uses: krdlab/setup-haxe@v2
         with:
           haxe-version: 4.3.4
 
