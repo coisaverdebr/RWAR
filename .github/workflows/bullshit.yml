@@ -20,7 +20,7 @@ jobs:
           java-version: '17'
 
       - name: Instalar Haxe
-        uses: kdy1/setup-haxe@v2
+        uses: kdrlab/setup-haxe@v2
         with:
           haxe-version: 4.3.4
 
